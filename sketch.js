@@ -9,7 +9,7 @@ var index,x
 var canvas
 var car1i, car2i, car3i, car4i
 var bg
-var title
+var title,hello
 
 function preload(){
 car1i=loadImage("images/car1.png")
@@ -24,6 +24,7 @@ function setup(){
     canvas=createCanvas(displayWidth-10,displayHeight-145)
     db=firebase.database()
 
+    hello=createElement('h1')
     //var dbRef=db.ref("gamestate")
     db.ref("gamestate").on("value",function(data){
         gs=data.val()
@@ -35,7 +36,7 @@ function setup(){
     })
 
 
-    var title=createElement("h2")
+    title=createElement("h2")
     title.html("Car racing game!")
     title.position(displayWidth/2-50,0)
 
@@ -88,9 +89,9 @@ function draw(){
 
     if(gs==1){
      background(0)
-        console.log(bg.height)
-    image(bg,0,0,displayWidth,7848)
-      // title.hide()
+     title.hide()
+     hello.hide()
+     image(bg,0,-displayHeight*4,displayWidth,displayHeight*5)
         
         var index=0
         var x=400
@@ -120,14 +121,18 @@ function draw(){
         }
 
         if(cars[currentindex-1].y<-3860){
-            gs=2
+            db.ref('/').update({
+                gamestate:2
+            })
+            
+            
         }
 
         if(gs===2){
             
-          var end=createElement("h3")
+          var end=createElement("h1")
           end.html("Game Over!")
-          end.position(displayWidth/2,displayHeight-100)
+          end.position(displayWidth/2,displayHeight/2)
         }
         drawSprites()
     }

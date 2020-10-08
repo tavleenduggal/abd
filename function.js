@@ -1,6 +1,6 @@
 function enterplayer(){
 
-    var hello=createElement('h1')
+     hello=createElement('h1')
     hello.position(displayWidth/2-70,displayHeight/4)
     var name=input.value()
   
